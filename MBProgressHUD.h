@@ -117,6 +117,12 @@ typedef enum {
 	UIView *customView;
 	
 	CGAffineTransform rotationTransform;
+	
+    // add custom color
+    // by James
+	UIColor *labelColor;
+    UIColor *detailsLabelColor;
+	UIColor *frameBackgroundColor;
 }
 
 /**
@@ -283,6 +289,25 @@ typedef enum {
  * The minimum size of the HUD bezel. Defaults to CGSizeZero.
  */
 @property (assign) CGSize minSize;
+
+/**
+ * 主标签文字颜色，默认是白色([UIColor whiteColor]).
+ * by James
+ */
+@property (retain) UIColor* labelColor;
+
+/**
+ * 详细标签文字颜色，默认是白色([UIColor whiteColor]).
+ * by James
+ */
+@property (retain) UIColor* detailsLabelColor;
+
+/**
+ * 矩形框背景颜色定义, 默认为nil, 即黑色.
+ * 当设置颜色时,透明度属性(opacity)无效.
+ * by James
+ */
+@property (retain) UIColor* frameBackgroundColor;
 
 /**
  * Force the HUD dimensions to be equal if possible. 

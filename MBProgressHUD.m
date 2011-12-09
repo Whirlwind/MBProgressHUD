@@ -70,6 +70,9 @@
 
 @synthesize showStarted;
 
+@synthesize labelColor;
+@synthesize detailsLabelColor;
+@synthesize frameBackgroundColor;
 - (void)setMode:(MBProgressHUDMode)newMode {
     // Dont change mode if it wasn't actually changed to prevent flickering
     if (mode && (mode == newMode)) {
@@ -265,6 +268,11 @@
 		self.removeFromSuperViewOnHide = NO;
 		self.minSize = CGSizeZero;
 		self.square = NO;
+        
+        // Custom Color by James
+		self.frameBackgroundColor = nil;
+		self.labelColor = [UIColor whiteColor];
+		self.detailsLabelColor = [UIColor whiteColor];
 		
 		self.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 		
@@ -339,7 +347,9 @@
         label.textAlignment = UITextAlignmentCenter;
         label.opaque = NO;
         label.backgroundColor = [UIColor clearColor];
-        label.textColor = [UIColor whiteColor];
+        // change textColor to Custom Color
+        // by James
+        label.textColor = labelColor;
         label.text = self.labelText;
 		
         // Update HUD size
@@ -369,7 +379,9 @@
             detailsLabel.textAlignment = UITextAlignmentCenter;
             detailsLabel.opaque = NO;
             detailsLabel.backgroundColor = [UIColor clearColor];
-            detailsLabel.textColor = [UIColor whiteColor];
+            // change textColor to Custom Color
+            // by James
+            detailsLabel.textColor = self.detailsLabelColor;
             detailsLabel.text = self.detailsLabelText;
             detailsLabel.numberOfLines = 0;
 
@@ -623,7 +635,12 @@
 	float radius = 10.0f;
 	
     CGContextBeginPath(context);
-    CGContextSetGrayFillColor(context, 0.0f, self.opacity);
+    // Custom background's color
+	if (frameBackgroundColor) {
+		CGContextSetFillColorWithColor(context, frameBackgroundColor.CGColor);
+	}else {
+		CGContextSetGrayFillColor(context, 0.0f, self.opacity);
+	}
     CGContextMoveToPoint(context, CGRectGetMinX(boxRect) + radius, CGRectGetMinY(boxRect));
     CGContextAddArc(context, CGRectGetMaxX(boxRect) - radius, CGRectGetMinY(boxRect) + radius, radius, 3 * (float)M_PI / 2, 0, 0);
     CGContextAddArc(context, CGRectGetMaxX(boxRect) - radius, CGRectGetMaxY(boxRect) - radius, radius, 0, (float)M_PI / 2, 0);
